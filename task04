@@ -1,0 +1,17 @@
+from datetime import date
+from hashlib import sha256
+
+bd = []
+
+
+def web_find(url):
+    salt = sha256(str(date).encode()).hexdigest()
+    url_hash = sha256(url.encode('UTF-8')).hexdigest() + salt
+    if (url_hash in bd) == True:
+        print('Страница есть')
+    else:
+        bd.append(url_hash)
+
+
+web_find('https://ya.ru/')
+web_find('https://ya.ru/')
