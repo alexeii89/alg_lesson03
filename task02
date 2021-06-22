@@ -1,0 +1,17 @@
+import hashlib
+
+login = input('Введите логин: ')  #
+passwd = hashlib.sha256(input('Введите пароль: ').encode('utf-8')).hexdigest()  # Пароль 123321
+passwd_hesh = hashlib.sha256(passwd.encode('utf-8')).hexdigest() + hashlib.sha224(login.encode('utf-8')).hexdigest()
+print(passwd_hesh)
+bd = {
+    'admin': '81d7d1ac060b7be0a180a42b6f1939ba5932b3efa93236f40703500955f4de6a58acb7acccce58ffa8b953b12b5a7702bd42dae441c1ad85057fa70b',
+    'user': '173af653133d964edfc16cafe0aba33c8f500a07f3ba3f81943916910c257705147ad31215fd55112ce613a7883902bb306aa35bba879cd2dbe500b9'
+    }
+try:
+    if bd[login] == passwd_hesh:
+        print(f'Доступ разрешен {login}')
+    else:
+        print('Неверный пароль')
+except:
+    print('Данный логин не зарегестрирован')

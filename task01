@@ -1,0 +1,36 @@
+from time import time_ns
+
+
+def time_decorate(my_foo):
+    def my_time(*args, **kwargs):
+        fist_time = time_ns() / 1000000000000000000
+        res = my_foo(*args, **kwargs)
+        print(f"Время выполнения: {(time_ns() / 1000000000000000000) - fist_time}")
+        return res
+
+    return my_time
+
+
+my_list = []
+my_dict = {}
+
+
+@time_decorate
+def my_list_add(*args):  # O(1)
+    for i in args:
+        my_list.append(i)
+
+
+my_list_add(1, 7, 5)
+print(my_list)
+
+
+@time_decorate
+def my_dict_add(*args):  # O(1)
+    for i in args:
+        my_dict.update(i)
+
+
+my_dict_add({1: 1}, {7: 7}, {5: 5})
+print(my_dict)
+# Разницы не увидел. Все по нулям
